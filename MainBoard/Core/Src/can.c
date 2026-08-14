@@ -54,6 +54,41 @@ void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
+  CAN_FilterTypeDef CAN_FilterConfig; // 定义过滤器
+
+  /*------------------------- 过滤器1 -------------------------*/
+  CAN_FilterConfig.FilterActivation = ENABLE;                  // 激活过滤器
+  CAN_FilterConfig.SlaveStartFilterBank = 14;                  // CAN1、CAN2 的过滤器分割线，0-13 给 CAN1，14-27 给 CAN2
+  CAN_FilterConfig.FilterBank = 0;                             // 使用第 0 个筛选器组
+  CAN_FilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;        // 位宽
+  CAN_FilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;         // 模式（列表/掩码）
+  CAN_FilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;    // 使用 FIFO0 信箱
+  CAN_FilterConfig.FilterIdHigh = (((0x02010101 << 3) | 4) >> 16); // 基准高位 FR0 高16位
+  CAN_FilterConfig.FilterMaskIdHigh = (((0x02010102 << 3) | 4) >> 16);     // 掩码高位 FR1 高16位
+  CAN_FilterConfig.FilterIdLow = ((0x02010101 << 3) | 4) & 0xFFFF;  // 基准高位 FR1 低16位
+  CAN_FilterConfig.FilterMaskIdLow = ((0x02010102 << 3) | 4) & 0xFFFF;      // 掩码地位 FR1 低16位
+
+  if (HAL_CAN_ConfigFilter(&hcan1, &CAN_FilterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_CAN_Start(&hcan1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_CAN_ActivateNotification(
+          &hcan1, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_CAN_ActivateNotification(
+          &hcan1, CAN_IT_RX_FIFO1_MSG_PENDING) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
   /* USER CODE END CAN1_Init 2 */
 
@@ -83,6 +118,11 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* CAN1 interrupt Init */
+    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    HAL_NVIC_SetPriority(CAN1_RX1_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(CAN1_RX1_IRQn);
   /* USER CODE BEGIN CAN1_MspInit 1 */
 
   /* USER CODE END CAN1_MspInit 1 */
@@ -106,6 +146,9 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_11|GPIO_PIN_12);
 
+    /* CAN1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(CAN1_RX0_IRQn);
+    HAL_NVIC_DisableIRQ(CAN1_RX1_IRQn);
   /* USER CODE BEGIN CAN1_MspDeInit 1 */
 
   /* USER CODE END CAN1_MspDeInit 1 */

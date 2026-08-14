@@ -29,7 +29,6 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
-typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -48,17 +47,12 @@ typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-/* Definitions for BeepTask */
-osThreadId_t BeepTaskHandle;
-uint32_t BeepTaskBuffer[ 128 ];
-osStaticThreadDef_t BeepTaskControlBlock;
-const osThreadAttr_t BeepTask_attributes = {
-  .name = "BeepTask",
-  .cb_mem = &BeepTaskControlBlock,
-  .cb_size = sizeof(BeepTaskControlBlock),
-  .stack_mem = &BeepTaskBuffer[0],
-  .stack_size = sizeof(BeepTaskBuffer),
-  .priority = (osPriority_t) osPriorityLow,
+/* Definitions for WaterTask */
+osThreadId_t WaterTaskHandle;
+const osThreadAttr_t WaterTask_attributes = {
+  .name = "WaterTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityBelowNormal,
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,7 +60,7 @@ const osThreadAttr_t BeepTask_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
-void Beep_Task(void *argument);
+void Water_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -97,8 +91,8 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of BeepTask */
-  BeepTaskHandle = osThreadNew(Beep_Task, NULL, &BeepTask_attributes);
+  /* creation of WaterTask */
+  WaterTaskHandle = osThreadNew(Water_Task, NULL, &WaterTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -110,22 +104,22 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_Beep_Task */
+/* USER CODE BEGIN Header_Water_Task */
 /**
-  * @brief  Function implementing the BeepTask thread.
+  * @brief  Function implementing the WaterTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_Beep_Task */
-void Beep_Task(void *argument)
+/* USER CODE END Header_Water_Task */
+__weak void Water_Task(void *argument)
 {
-  /* USER CODE BEGIN Beep_Task */
+  /* USER CODE BEGIN Water_Task */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END Beep_Task */
+  /* USER CODE END Water_Task */
 }
 
 /* Private application code --------------------------------------------------*/
