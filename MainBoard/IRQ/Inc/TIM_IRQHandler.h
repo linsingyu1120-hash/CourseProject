@@ -1,15 +1,12 @@
 #ifndef TIM_IRQHandler_H
 #define TIM_IRQHandler_H
 
-/*---------------------------------Include--------------------------------*/
 #include "main.h"
 #include "tim.h"
 
-/*---------------------------------Define---------------------------------*/
-extern volatile uint16_t tim_count;
-extern volatile uint8_t dir;
-
-/*---------------------------------Function-------------------------------*/
 void TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+
+extern volatile uint8_t breathe_is_on;
+extern volatile uint32_t breathe_led_period;
 
 #endif /*TIM_IRQHandler_H*/

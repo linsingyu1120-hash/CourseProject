@@ -21,6 +21,7 @@
                 "e:\\robocon\\whu robocon\\CourseProject\\MainBoard\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang",
                 "e:\\robocon\\whu robocon\\CourseProject\\MainBoard\\HDL\\Src",
                 "e:\\robocon\\whu robocon\\CourseProject\\MainBoard\\IRQ\\Src",
+                "e:\\robocon\\whu robocon\\CourseProject\\MainBoard\\User\\Src",
                 "${default}"
             ],
             "defines": [

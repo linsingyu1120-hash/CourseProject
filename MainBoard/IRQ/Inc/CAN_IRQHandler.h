@@ -9,4 +9,6 @@ void CAN_Task(void);
 
 HAL_StatusTypeDef CAN_Send_Message(uint32_t ExtId, uint8_t DLC, uint8_t *TxData);
 
+extern float y;
+
 #endif

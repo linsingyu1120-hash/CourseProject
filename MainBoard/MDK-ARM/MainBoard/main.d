@@ -42,4 +42,5 @@ mainboard/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
   ..\Core\Inc\can.h ..\Core\Inc\tim.h ..\Core\Inc\usart.h \
-  ..\Core\Inc\gpio.h
+  ..\Core\Inc\gpio.h ..\IRQ\Inc\UART_IRQHandler.h \
+  ..\IRQ\Inc\CAN_IRQHandler.h ..\IRQ\Inc\TIM_IRQHandler.h

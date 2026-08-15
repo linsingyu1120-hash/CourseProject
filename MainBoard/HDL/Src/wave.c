@@ -1,16 +1,10 @@
 #include "wave.h"
 #include "usart.h"
 #include "CAN_IRQHandler.h"
-
-volatile  breathe_is_on;
-volatile float y;
+#include <string.h>
 
 void Sine_Wave(void)
 {
-    if (breathe_is_on != 1)
-    {
-        return;
-    }
 
     static uint8_t tx_buffer[8];
     memcpy(tx_buffer, &y, sizeof(y));
