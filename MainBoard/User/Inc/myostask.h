@@ -9,5 +9,6 @@
 #define LED_OFF(x) HAL_GPIO_WritePin(LED_##x##_GPIO_Port, LED_##x##_Pin, GPIO_PIN_RESET)
 
 void Water_Task(void *argument);
+void Beep_Task(void *argument);
 
 #endif

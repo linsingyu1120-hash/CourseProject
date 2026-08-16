@@ -24,23 +24,25 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             if (rx_buffer[1] == 0x00U)
             {
                 breathe_is_on = 0U;
-                (void)CAN_Send_Message(0x02010101U, 3U, TxData);
+                (void)CAN_Send_Message(0x012U, 3U, TxData);
             }
             else if ((rx_buffer[1] == 0x01U) && ((rx_buffer[2] >> 4) <= 9U) && ((rx_buffer[2] & 0x0FU) <= 9U) &&
                      ((rx_buffer[3] >> 4) <= 9U) && ((rx_buffer[3] & 0x0FU) <= 9U))
             {
                 breathe_led_period = (((uint32_t)rx_buffer[2] >> 4) * 1000U) +
-                                     (((uint32_t)rx_buffer[2] & 0x0FU) * 100U) + 
+                                     (((uint32_t)rx_buffer[2] & 0x0FU) * 100U) +
                                      (((uint32_t)rx_buffer[3] >> 4) * 10U) + ((uint32_t)rx_buffer[3] & 0x0FU);
 
-                if (breathe_led_period != 0U)
-                {
-                    breathe_is_on = 1U;
-                }
                 if (breathe_led_period >= 4U)
                 {
                     breathe_is_on = 1U;
-                    (void)CAN_Send_Message(0x02010101U, 3U, TxData);
+                    (void)CAN_Send_Message(0x012U, 3U, TxData);
+                }
+                else
+                {
+                    breathe_is_on = 0U;
+                    TxData[0] = 0x00U;
+                    (void)CAN_Send_Message(0x012U, 3U, TxData);
                 }
             }
         }

@@ -4,7 +4,7 @@
 static uint8_t dir = 1U;
 static uint16_t tim_count = 0U;
 volatile uint8_t breathe_is_on = 0U;
-volatile uint32_t breathe_led_period = 1000U;
+volatile uint32_t breathe_led_period = 0U;
 
 void TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -20,6 +20,11 @@ void TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0U);
         __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 0U);
         return;
+    }
+
+    if ((uint32_t)tim_count > (breathe_led_period / 2U))
+    {
+        tim_count = (uint16_t)(breathe_led_period / 2U);
     }
 
     if (dir == 1U)

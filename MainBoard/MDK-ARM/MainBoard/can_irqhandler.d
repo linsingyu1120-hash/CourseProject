@@ -30,6 +30,5 @@ mainboard/can_irqhandler.o: ..\IRQ\Src\CAN_IRQHandler.c ..\HDL\Inc\wave.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Core\Inc\usart.h ..\HDL\Inc\beep.h ..\HDL\Inc\timer.h \
-  ..\IRQ\Inc\CAN_IRQHandler.h ..\Core\Inc\can.h \
-  D:\Keil5\ARM\ARMCLANG\Bin\..\include\string.h
+  ..\Core\Inc\usart.h ..\HDL\Inc\beep.h ..\IRQ\Inc\CAN_IRQHandler.h \
+  ..\Core\Inc\can.h D:\Keil5\ARM\ARMCLANG\Bin\..\include\string.h

@@ -23,24 +23,23 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         return;
     }
 
-    if ((RxHeader.IDE == CAN_ID_STD) && (RxHeader.StdId == 0x012U) && (RxHeader.DLC == 4U))
+    if ((RxHeader.IDE == CAN_ID_EXT) && (RxHeader.ExtId == 0x02010101U) && (RxHeader.DLC == 4U))
     {
         memcpy(&y, RxData, sizeof(float));
         Sine_Wave();
     }
     else if ((RxHeader.IDE == CAN_ID_EXT) && (RxHeader.ExtId == 0x02010102U) && (RxHeader.DLC == 1U))
     {
-        beep_initialized = 0U;
-        buzzer_is_on = 1U;
+
         beep_times = RxData[0];
-        beep();
+
     }
 }
 
-HAL_StatusTypeDef CAN_Send_Message(uint32_t ExtId, uint8_t DLC, uint8_t *TxData)
+HAL_StatusTypeDef CAN_Send_Message(uint32_t StdId, uint8_t DLC, uint8_t *TxData)
 {
-    TxHeader.ExtId = ExtId;
-    TxHeader.IDE = CAN_ID_EXT;
+    TxHeader.StdId = StdId;
+    TxHeader.IDE = CAN_ID_STD;
     TxHeader.RTR = CAN_RTR_DATA;
     TxHeader.DLC = DLC;
     TxHeader.TransmitGlobalTime = DISABLE;

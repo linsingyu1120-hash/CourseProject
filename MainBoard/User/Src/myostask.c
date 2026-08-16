@@ -1,6 +1,8 @@
 #include "myostask.h"
+#include "beep.h"
 
 volatile uint32_t waterTaskStackHighWaterMark = 0;
+volatile uint32_t beepTaskStackHighWaterMark = 0;
 
 void Water_Task(void *argument)
 {
@@ -19,4 +21,23 @@ void Water_Task(void *argument)
 
         osDelay(250);
     }
+}
+
+void Beep_Task(void *argument)
+{
+    beep_init();
+
+    for (;;)
+{
+    if (beep_times != 0U)
+    {
+        beep(beep_times);
+        beep_times = 0U;
+    }
+
+    beepTaskStackHighWaterMark =
+        uxTaskGetStackHighWaterMark(NULL) * sizeof(StackType_t);
+
+    osDelay(10U);
+}
 }

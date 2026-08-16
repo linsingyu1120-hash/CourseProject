@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -1233,11 +1233,6 @@
               <FileName>beep.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HDL\Src\beep.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HDL\Src\timer.c</FilePath>
             </File>
             <File>
               <FileName>wave.c</FileName>

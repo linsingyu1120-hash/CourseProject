@@ -5,7 +5,6 @@
 
 void Sine_Wave(void)
 {
-
     static uint8_t tx_buffer[8];
     memcpy(tx_buffer, &y, sizeof(y));
     tx_buffer[4] = 0x00;

@@ -29,6 +29,7 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
+typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -54,6 +55,18 @@ const osThreadAttr_t WaterTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityBelowNormal,
 };
+/* Definitions for BeepTask */
+osThreadId_t BeepTaskHandle;
+uint32_t BeepTaskBuffer[ 128 ];
+osStaticThreadDef_t BeepTaskControlBlock;
+const osThreadAttr_t BeepTask_attributes = {
+  .name = "BeepTask",
+  .cb_mem = &BeepTaskControlBlock,
+  .cb_size = sizeof(BeepTaskControlBlock),
+  .stack_mem = &BeepTaskBuffer[0],
+  .stack_size = sizeof(BeepTaskBuffer),
+  .priority = (osPriority_t) osPriorityLow,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -61,6 +74,7 @@ const osThreadAttr_t WaterTask_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void Water_Task(void *argument);
+void Beep_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -94,6 +108,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of WaterTask */
   WaterTaskHandle = osThreadNew(Water_Task, NULL, &WaterTask_attributes);
 
+  /* creation of BeepTask */
+  BeepTaskHandle = osThreadNew(Beep_Task, NULL, &BeepTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -120,6 +137,24 @@ __weak void Water_Task(void *argument)
     osDelay(1);
   }
   /* USER CODE END Water_Task */
+}
+
+/* USER CODE BEGIN Header_Beep_Task */
+/**
+* @brief Function implementing the BeepTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Beep_Task */
+__weak void Beep_Task(void *argument)
+{
+  /* USER CODE BEGIN Beep_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Beep_Task */
 }
 
 /* Private application code --------------------------------------------------*/

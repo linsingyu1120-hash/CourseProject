@@ -38,7 +38,6 @@
 "mainboard\heap_4.o"
 "mainboard\port.o"
 "mainboard\beep.o"
-"mainboard\timer.o"
 "mainboard\wave.o"
 "mainboard\can_irqhandler.o"
 "mainboard\tim_irqhandler.o"

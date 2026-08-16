@@ -63,9 +63,9 @@ void MX_CAN1_Init(void)
   CAN_FilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;        
   CAN_FilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;         
   CAN_FilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;    
-  CAN_FilterConfig.FilterIdHigh = (0x012U << 5); 
-  CAN_FilterConfig.FilterMaskIdHigh = (((0x02010102 << 3) | 16) >> 16);     
-  CAN_FilterConfig.FilterIdLow = 0U; 
+  CAN_FilterConfig.FilterIdHigh = (((0x02010101 << 3) >> 16) & 0xFFFF); 
+  CAN_FilterConfig.FilterMaskIdHigh = (((0x02010102 << 3) >> 16) & 0xFFFF);     
+  CAN_FilterConfig.FilterIdLow = ((0x02010101 << 3) | CAN_ID_EXT) & 0xFFFF; 
   CAN_FilterConfig.FilterMaskIdLow = ((0x02010102 << 3) | CAN_ID_EXT) & 0xFFFF;     
 
   if (HAL_CAN_ConfigFilter(&hcan1, &CAN_FilterConfig) != HAL_OK)
