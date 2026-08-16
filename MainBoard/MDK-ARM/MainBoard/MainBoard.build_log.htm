@@ -27,7 +27,33 @@ Project File Date:  08/16/2026
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'D:\Keil5\ARM\ARMCLANG\Bin'
 Build target 'MainBoard'
-"MainBoard\MainBoard.axf" - 0 Error(s), 0 Warning(s).
+compiling croutine.c...
+../User/Src/myostask.c(15): error: redefinition of 'TxData' with a different type: 'uint32_t[8]' (aka 'unsigned int[8]') vs 'uint8_t[8]' (aka 'unsigned char[8]')
+static uint32_t TxData[8] = {0};
+                ^
+../User/Src/myostask.c(14): note: previous definition is here
+static uint8_t TxData[8] = {0};
+               ^
+../User/Src/myostask.c(16): error: redefinition of 'id' with a different type: 'uint16_t' (aka 'unsigned short') vs 'uint32_t' (aka 'unsigned int')
+static uint16_t id = 0x000;
+                ^
+../User/Src/myostask.c(13): note: previous definition is here
+static uint32_t id = 0x013;
+                ^
+2 errors generated.
+compiling myostask.c...
+compiling list.c...
+compiling event_groups.c...
+compiling main.c...
+compiling port.c...
+compiling heap_4.c...
+compiling timers.c...
+compiling freertos.c...
+compiling stream_buffer.c...
+compiling queue.c...
+compiling tasks.c...
+compiling cmsis_os2.c...
+"MainBoard\MainBoard.axf" - 2 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -50,7 +76,8 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:00
+Target not created.
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

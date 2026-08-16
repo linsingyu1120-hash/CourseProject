@@ -65,6 +65,20 @@ const osThreadAttr_t BeepTask_attributes = {
   .cb_size = sizeof(BeepTaskControlBlock),
   .stack_mem = &BeepTaskBuffer[0],
   .stack_size = sizeof(BeepTaskBuffer),
+  .priority = (osPriority_t) osPriorityLow1,
+};
+/* Definitions for NoiseTask */
+osThreadId_t NoiseTaskHandle;
+const osThreadAttr_t NoiseTask_attributes = {
+  .name = "NoiseTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow2,
+};
+/* Definitions for BreatheTask */
+osThreadId_t BreatheTaskHandle;
+const osThreadAttr_t BreatheTask_attributes = {
+  .name = "BreatheTask",
+  .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 
@@ -75,6 +89,8 @@ const osThreadAttr_t BeepTask_attributes = {
 
 void Water_Task(void *argument);
 void Beep_Task(void *argument);
+void Noise_Task(void *argument);
+void Breathe_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -110,6 +126,12 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of BeepTask */
   BeepTaskHandle = osThreadNew(Beep_Task, NULL, &BeepTask_attributes);
+
+  /* creation of NoiseTask */
+  NoiseTaskHandle = osThreadNew(Noise_Task, NULL, &NoiseTask_attributes);
+
+  /* creation of BreatheTask */
+  BreatheTaskHandle = osThreadNew(Breathe_Task, NULL, &BreatheTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -155,6 +177,42 @@ __weak void Beep_Task(void *argument)
     osDelay(1);
   }
   /* USER CODE END Beep_Task */
+}
+
+/* USER CODE BEGIN Header_Noise_Task */
+/**
+* @brief Function implementing the NoiseTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Noise_Task */
+__weak void Noise_Task(void *argument)
+{
+  /* USER CODE BEGIN Noise_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Noise_Task */
+}
+
+/* USER CODE BEGIN Header_Breathe_Task */
+/**
+* @brief Function implementing the BreatheTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Breathe_Task */
+__weak void Breathe_Task(void *argument)
+{
+  /* USER CODE BEGIN Breathe_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Breathe_Task */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -30,9 +30,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
     }
     else if ((RxHeader.IDE == CAN_ID_EXT) && (RxHeader.ExtId == 0x02010102U) && (RxHeader.DLC == 1U))
     {
-
         beep_times = RxData[0];
-
     }
 }
 

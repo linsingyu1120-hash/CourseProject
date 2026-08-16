@@ -5,6 +5,8 @@ static uint8_t dir = 1U;
 static uint16_t tim_count = 0U;
 volatile uint8_t breathe_is_on = 0U;
 volatile uint32_t breathe_led_period = 0U;
+static uint32_t id = 0x013;
+static uint8_t TxData[8] = {0};
 
 void TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
